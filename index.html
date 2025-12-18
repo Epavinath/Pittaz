@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PITTAZ | Home</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+  --primary: #0F0F10;
+  --accent: #4F46E5;
+  --accent-light: #6366F1;
+  --bg: #F9FAFB;
+  --border: #E5E7EB;
+}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--primary)}
+html{scroll-behavior:smooth}
+@keyframes logoLine{to{width:80px}} .animate-logoLine{animation:logoLine 1.2s forwards}
+
+/* MOTION */
+.motion-card{width:220px;height:260px;perspective:1200px}
+.motion-card img{
+  width:100%;height:100%;object-fit:contain;border-radius:16px;
+  transition:transform .3s cubic-bezier(.22,.61,.36,1),box-shadow .3s ease;
+  animation:floatY 7.5s ease-in-out infinite;
+}
+a:hover {
+  color: var(--accent);
+}
+/* scroll animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* parallax */
+.parallax {
+  position: relative;
+  overflow: hidden;
+}
+
+.parallax-inner {
+  transform: translateY(0);
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+/* hero parallax */
+.hero-parallax .motion-card {
+  will-change: transform;
+}
+.typing-caret::after {
+  content: "|";
+  margin-left: 4px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+
+
+
+
+@keyframes floatY{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+.motion-card:hover img{box-shadow:0 28px 56px rgba(0,0,0,.25)}
+</style>
+</head>
+<body>
+
+<header class="sticky top-0 bg-white shadow z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center gap-4">
+      <div>
+        <img src="assets/pittaz.jpeg" class="h-10">
+        <span class="block h-[2px] w-0 bg-black animate-logoLine mt-1"></span>
+      </div>
+      <span class="hidden md:inline text-sm text-gray-600">Custom Printing Solutions</span>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="index.html"
+   style="color: var(--accent); font-weight:600;">
+  Home
+</a>
+      <a href="account.html">My Account</a>
+      <a href="orders.html">Orders</a>
+      <a href="cart.html">Cart</a>
+      <a href="design-editor.html">Start Designing</a>
+      <a href="#get-in-touch">Contact</a>
+      <a href="login.html" class="font-semibold">Login</a>
+      <a href="admin/dashboard.html">Admin</a>
+      
+    </nav>
+  </div>
+</header>
+
+<section class="py-24 bg-white text-center">
+  <img src="assets/pittaz.jpeg" class="absolute right-10 top-10 w-64 opacity-5">
+  <div class="max-w-7xl mx-auto px-6">
+<h1 class="text-5xl font-bold mb-6">
+  <span id="typing-text"></span>
+</h1>
+    <p class="text-gray-600 mb-12 max-w-3xl mx-auto">
+      Design and order premium T-shirts, bottles, cards, bags & more.
+    </p>
+
+    <!-- MOTION GRID -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-10 place-items-center hero-parallax">
+      <div class="motion-card"><a>Polo T-Shirt</a><img src="assets/t-shirt-7968889_1280.jpg" alt=""></div>
+      <div class="motion-card"><a>Water Bottle</a><img src="assets/bottel.webp" alt=""></div>
+      <div class="motion-card"><a>Coffee Mug</a><img src="assets/cup2.jpg" alt=""></div>
+      <div class="motion-card"><a>Business Card</a><img src="assets/card.jpg" alt=""></div>
+      <div class="motion-card"><a>Printable T-shirt</a><img src="assets/cust2.png" alt=""></div>
+      <div class="motion-card"><a>Magazines</a><img src="assets/magazin.jpg" alt=""></div>
+      <div class="motion-card"><a>Cotton Bag</a><img src="assets/bag3.webp" alt=""></div>
+      <div class="motion-card"><a>Dangler</a><img src="assets/dangler.jpg" alt=""></div>
+      <div class="motion-card"><a>Poly Cotton T-Shirt</a><img src="assets/Cotton-T-shirt.webp" alt=""></div>
+      <div class="motion-card"><a>Cust T-Shirt</a><img src="assets/t-shirt-9627846_1280.jpg" alt=""></div>
+
+    </div>
+
+    <div class="mt-14">
+      <a href="design-editor.html" class="bg-[color:var(--accent)] text-white px-8 py-3 rounded-lg">
+        Start Designing
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GET IN TOUCH (HOME) ================= -->
+<section id="get-in-touch" class="py-20 bg-gray-50 reveal parallax">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+<div class="parallax-inner">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+  
+    <!-- LEFT CONTENT -->
+    <div>
+      <h2 class="text-3xl font-bold mb-2">Get in Touch</h2>
+
+      <!-- accent line -->
+      <span class="inline-block w-16 h-1 rounded-full mb-6"
+            style="background: var(--accent);"></span>
+
+      <p class="text-gray-600 mb-6">
+        Have a custom printing requirement, bulk order, or brand project?
+        Tell us what you need — we’ll get back to you quickly.
+      </p>
+
+      <div class="space-y-3 text-sm">
+        <p>📞 <strong>WhatsApp:</strong> +91 XXXXXXXXXX</p>
+        <p>✉️ <strong>Email:</strong> info@pittaz.com</p>
+        <p>⏰ <strong>Working Hours:</strong> Mon – Sat, 9AM – 7PM</p>
+      </div>
+    </div></div></div>
+
+    <!-- RIGHT FORM -->
+    <div class="bg-white p-8 rounded-xl shadow">
+      <h3 class="text-xl font-semibold mb-6">Send us a message</h3>
+
+     <form onsubmit="sendToWhatsApp(event)">
+
+       <input
+  type="text"
+  id="name"
+  placeholder="Your Name"
+  class="w-full border p-3 mb-4 rounded"
+  required
+>
+
+<input
+  type="email"
+  id="email"
+  placeholder="Your Email"
+  class="w-full border p-3 mb-4 rounded"
+  required
+>
+
+<input
+  type="text"
+  id="phone"
+  placeholder="Phone / WhatsApp"
+  class="w-full border p-3 mb-4 rounded"
+  required
+>
+
+<textarea
+  id="message"
+  placeholder="Tell us about your requirement"
+  class="w-full border p-3 mb-4 rounded h-28"
+  required
+></textarea>
+
+
+        <button
+          type="submit"
+          class="w-full py-3 rounded text-white"
+          style="background: var(--accent);"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="bg-white text-black-300 py-10 text-center">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-3xl font-bold mb-6">About PITTAZ</h2>
+    <p class="text-gray-600">
+      PITTAZ is a modern custom printing brand delivering premium solutions for
+      individuals, startups and enterprises with speed, quality and trust.
+    </p>
+  </div>
+</section>
+<footer class="bg-black text-gray-300 py-10 text-center">
+  <img src="assets/pittaz.jpeg" class="h-8 mx-auto mb-3">
+  <p class="text-sm">Crafted Prints. Built Brands.</p>
+  <p class="text-xs mt-4">© 2025 PITTAZ</p>
+</footer>
+
+<script>
+document.querySelectorAll(".motion-card").forEach(card=>{
+  const img=card.querySelector("img");
+  card.addEventListener("mousemove",e=>{
+    if(innerWidth<768) return;
+    const r=card.getBoundingClientRect();
+    const x=e.clientX-r.left-r.width/2;
+    const y=e.clientY-r.top-r.height/2;
+    img.style.transform=`translateY(-10px) rotateX(${(-y/24).toFixed(2)}deg) rotateY(${(x/24).toFixed(2)}deg) scale(1.05)`;
+  });
+  card.addEventListener("mouseleave",()=>img.style.transform="translateY(0) rotateX(0) rotateY(0) scale(1)");
+});
+</script>
+<script>
+function revealOnScroll() {
+  const reveals = document.querySelectorAll(".reveal");
+
+  reveals.forEach(el => {
+    const windowHeight = window.innerHeight;
+    const elementTop = el.getBoundingClientRect().top;
+    const revealPoint = 120;
+
+    if (elementTop < windowHeight - revealPoint) {
+      el.classList.add("active");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+revealOnScroll(); // run once on load
+</script>
+<script>
+const parallaxSections = document.querySelectorAll(".parallax");
+
+window.addEventListener("scroll", () => {
+  if (window.innerWidth < 768) return; // disable on mobile
+
+  parallaxSections.forEach(section => {
+    const inner = section.querySelector(".parallax-inner");
+    const rect = section.getBoundingClientRect();
+    const speed = 0.25; // parallax strength (safe value)
+
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      const offset = -rect.top * speed;
+      inner.style.transform = `translateY(${offset}px)`;
+    }
+  });
+});
+</script>
+<script>
+/* HERO IMAGE PARALLAX */
+window.addEventListener("scroll", () => {
+  if (window.innerWidth < 768) return; // disable on mobile
+
+  const cards = document.querySelectorAll(".hero-parallax .motion-card");
+  const scrollY = window.scrollY;
+
+  cards.forEach((card, index) => {
+    // different depth per image
+    const speed = 0.06 + index * 0.015;
+    card.style.transform = `translateY(${scrollY * speed}px)`;
+  });
+});
+</script>
+<script>
+function sendToWhatsApp(e) {
+  e.preventDefault();
+
+  const lead = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    message: document.getElementById("message").value,
+    date: new Date().toLocaleString()
+  };
+
+  const leads = JSON.parse(localStorage.getItem("pittazLeads")) || [];
+  leads.push(lead);
+  localStorage.setItem("pittazLeads", JSON.stringify(leads));
+
+  const whatsappNumber = "917358408404"; // replace
+  const text =
+    `Hello PITTAZ 👋%0A%0A` +
+    `Name: ${lead.name}%0A` +
+    `Phone: ${lead.phone}%0A%0A` +
+    `${lead.message}`;
+
+  window.open(`https://wa.me/${whatsappNumber}?text=${text}`, "_blank");
+
+  e.target.reset();
+}
+</script>
+<script>
+const text = "Custom Prints That Build Brands";
+const speed = 70; // typing speed (ms)
+
+const el = document.getElementById("typing-text");
+el.classList.add("typing-caret");
+
+let index = 0;
+
+function typeEffect() {
+  if (index < text.length) {
+    el.textContent += text.charAt(index);
+    index++;
+    setTimeout(typeEffect, speed);
+  } else {
+    el.classList.remove("typing-caret"); // remove cursor after typing
+  }
+}
+
+typeEffect();
+</script>
+
+
+
+
+</body>
+</html>
