@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PITTAZ | Design Editor</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Fabric.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+
+<style>
+canvas {
+  border: 1px dashed #ccc;
+}
+.tshirt-wrapper {
+  position: relative;
+  width: 350px;
+  height: 450px;
+  background: url("assets/mockup.jpg") center/contain no-repeat;
+  margin: auto;
+}
+
+#editor {
+  position: absolute;
+  top: 110px;     /* chest position */
+  left: 75px;
+  border: none;
+  background: transparent;
+}
+
+</style>
+</head>
+
+<body class="bg-gray-100">
+
+<header class="bg-white shadow p-4 flex justify-between">
+  <h1 class="font-bold text-xl">Design Your Product</h1>
+  <a href="cart.html" class="text-indigo-600">Go to Cart</a>
+</header>
+
+<section class="max-w-7xl mx-auto p-6 grid md:grid-cols-3 gap-6">
+
+  <!-- LEFT TOOLS -->
+  <div class="bg-white p-4 rounded shadow space-y-4">
+    <h2 class="font-semibold">Tools</h2>
+
+    <button onclick="addText()"
+      class="w-full bg-black text-white py-2 rounded">
+      Add Text
+    </button>
+
+    <input type="file" accept="image/*"
+      onchange="addImage(event)"
+      class="w-full">
+
+    <button onclick="deleteObject()"
+      class="w-full bg-red-600 text-white py-2 rounded">
+      Delete Selected
+    </button>
+  </div>
+  <!-- PRODUCT SELECTOR -->
+<div>
+  <label class="text-sm font-medium">Select Product</label>
+  <select id="productType"
+          class="w-full border p-2 rounded mt-1">
+    <option value="tshirt" data-price="499">T-Shirt – ₹299</option>
+    <option value="mug" data-price="299">Mug – ₹199</option>
+    <option value="bag" data-price="399">Bag – ₹199</option>
+  </select>
+</div>
+
+
+  <!-- CANVAS AREA -->
+  <div class="bg-white p-4 rounded shadow flex justify-center col-span-2">
+  <div class="tshirt-wrapper">
+    <canvas id="editor" width="200" height="200"></canvas>
+  </div>
+</div>
+
+  <div class="col-span-3 text-center mt-6">
+  <button
+  id="addToCartBtn"
+  onclick="addToCart()"
+  disabled
+  class="bg-gray-400 text-white px-8 py-3 rounded-lg cursor-not-allowed">
+  Add to Cart
+</button>
+
+</div>
+<div class="col-span-3 text-center mt-4">
+  <button
+    onclick="downloadDesign()"
+    class="border border-black px-8 py-3 rounded-lg">
+    Download Design (PNG)
+  </button>
+</div>
+
+
+
+</section>
+
+<script>
+/* Initialize canvas */
+const canvas = new fabric.Canvas("editor", {
+  backgroundColor: "#f3f4f6"
+});
+
+/* Add Text */
+function addText() {
+  const text = new fabric.Textbox("Your Text", {
+    left: 50,
+    top: 50,
+    fontSize: 24,
+    fill: "#000"
+  });
+  canvas.add(text);
+  canvas.setActiveObject(text);
+}
+
+/* Add Image */
+function addImage(event) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    fabric.Image.fromURL(e.target.result, function(img) {
+      img.scaleToWidth(150);
+      canvas.add(img);
+      canvas.setActiveObject(img);
+    });
+  };
+  reader.readAsDataURL(event.target.files[0]);
+}
+
+/* Delete object */
+function deleteObject() {
+  const obj = canvas.getActiveObject();
+  if (obj) {
+    canvas.remove(obj);
+  }
+}
+</script>
+<script>
+function getCart() {
+  return JSON.parse(localStorage.getItem("pittazCart")) || [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem("pittazCart", JSON.stringify(cart));
+}
+</script>
+<script>
+function updateAddToCartState() {
+  const btn = document.getElementById("addToCartBtn");
+  const hasDesign = canvas.getObjects().length > 0;
+
+  if (hasDesign) {
+    btn.disabled = false;
+    btn.className =
+      "bg-black text-white px-8 py-3 rounded-lg cursor-pointer";
+  } else {
+    btn.disabled = true;
+    btn.className =
+      "bg-gray-400 text-white px-8 py-3 rounded-lg cursor-not-allowed";
+  }
+}
+
+// watch canvas changes
+canvas.on("object:added", updateAddToCartState);
+canvas.on("object:removed", updateAddToCartState);
+</script>
+
+
+<script>
+function addToCart() {
+  const cart = getCart();
+
+  // get selected product
+  const select = document.getElementById("productType");
+  const selectedOption = select.options[select.selectedIndex];
+
+  const productName = selectedOption.text;
+  const productPrice = Number(selectedOption.dataset.price);
+
+  // convert canvas to image
+  const designImage = canvas.toDataURL({
+    format: "png",
+    quality: 1
+  });
+
+  const product = {
+    id: Date.now(),
+    name: productName,
+    price: productPrice,
+    quantity: 1,
+    designImage: designImage
+  };
+
+  cart.push(product);
+  saveCart(cart);
+
+  alert(`${productName} added to cart 🛒`);
+}
+</script>
+<script>
+function downloadDesign() {
+  if (canvas.getObjects().length === 0) {
+    alert("Please add a design before downloading.");
+    return;
+  }
+
+  // Export high-resolution image (2x scale)
+  const dataURL = canvas.toDataURL({
+    format: "png",
+    multiplier: 2
+  });
+
+  const link = document.createElement("a");
+  link.href = dataURL;
+  link.download = "pittaz-print-design.png";
+  link.click();
+}
+</script>
+
+
+
+</body>
+</html>
